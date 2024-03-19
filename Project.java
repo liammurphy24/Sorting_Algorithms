@@ -11,7 +11,7 @@ public class Project {
             System.out.print(" " + value);
         }
 
-        BubbleSort(arr);
+        // BubbleSort(arr);
 
         System.out.println();
 
@@ -36,7 +36,30 @@ public class Project {
             }
         }
     }
-} 
+    public static void SelectionSort(int[] arr) {
+        int minIndex, temp;
+
+        for(int i = 0; i < arr.length; i++) {
+            minIndex = i;
+
+            for(int j = i; j < arr.length; j++) {
+                if(arr[j] < arr[minIndex]) {
+                    minIndex = j;
+                }
+            }
+
+
+            temp = arr[i];
+            arr[i] = arr[minIndex];
+            arr[minIndex] = temp;
+
+        }
+    
+    }
+
+
+    } 
+
 
 //public static void Swap() {
 
