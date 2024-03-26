@@ -4,31 +4,28 @@
 public class Project {
 
     public static void main(String[] args) {
-        int[] arr = {3, 54, 21, 1, 58, 87, 89, 9000, 2, 1};
+        int[] arr = {3, 54, 21, 1, 58, 87, 89, 9000, 2, 1, 18};
         //System.out.println(arr);
 
+        
+        //long startTime = System.nanoTime();
 
-        long startTime = System.nanoTime();
-
-        for(int value : arr) {
-            System.out.print(" " + value);
-        }
 
         // BubbleSort(arr);
         // SelectionSort(arr);
         //InsertionSort(arr);
-        MergeSort(arr);
-
-        System.out.println();
+        //MergeSort(arr);
+        QuickSort(arr);
+        //System.out.println();
 
         
         for(int value : arr) {
             System.out.print(" " + value);
         }
 
-        long elapsedNanos = System.nanoTime() - startTime;
-        System.out.println();
-        System.out.println(elapsedNanos / 1000000);
+       // long elapsedNanos = System.nanoTime() - startTime;
+        //System.out.println();
+        //System.out.println(elapsedNanos / 1000000);
     }
 
     public static void BubbleSort(int[] arr) {
@@ -115,7 +112,7 @@ public class Project {
 
         int mainIndex = 0, leftArrIndex = 0, rightArrIndex = 0;
 
-        if(leftArrIndex< leftArraySize && rightArrIndex < rightArrarySize) {
+        while(leftArrIndex< leftArraySize && rightArrIndex < rightArrarySize) {
             if(leftArray[leftArrIndex] < rightArrary[rightArrIndex]) {
                 array[mainIndex] = leftArray[leftArrIndex];
                 mainIndex++;
@@ -123,7 +120,7 @@ public class Project {
             } else {
                 array[mainIndex] = rightArrary[rightArrIndex];
                 mainIndex++;
-                leftArrIndex++;
+                rightArrIndex++;
             }
         }
 
@@ -139,4 +136,54 @@ public class Project {
             rightArrIndex++;
         }
     }
-    } 
+    
+    public static void QuickSort(int[] arr) {
+        RecursiveQuickSort(arr, 0, arr.length -1);
+    }
+
+    /**
+     * Will recursively call itself to perform quick sort operation
+     * @param arr the array which should be sorted
+     * @param low starting index for the current sub array being evaluated
+     * @param high ending index for the current sub array being evaluated
+     */
+    public static void RecursiveQuickSort(int[] arr, int low, int high) {
+        //this is our condition that lets us know if we need to 
+        //continue splitting into sub arrays
+        if (low < high){
+            int pivotIndex = Partition(arr, low, high);
+            RecursiveQuickSort(arr, low, pivotIndex - 1);
+            RecursiveQuickSort(arr, pivotIndex + 1, high);
+        }
+    }
+
+    public static int Partition(int[] arr, int low, int high) {
+        // choose our pivot
+        int pivot = arr[high];
+
+        // set the position for the smaller element
+        int i = (low -1);
+
+        // j will go through each of the elemants in the current sub array being 
+        // evaluated it should start at low and end at high (inclusive)
+        for(int j = low; j <= high; j++) {
+
+            if(arr[j] < pivot) {
+                i++;
+                //swap
+                Swap(arr, i, j);
+            }
+        }
+
+        Swap(arr, i + 1, high);
+        return i + 1; 
+    }
+
+    public static void Swap(int[] arr, int index1, int index2) {
+        int temp = arr[index1];
+        arr[index1] = arr[index2];
+        arr[index2] = temp;
+    
+    }
+}
+
